@@ -1,0 +1,157 @@
+// src/repositories/policyAPRepo.ts
+
+import {
+  PolicyAP,
+  PolicyType,
+  PolicyStatus,
+  APStatus,
+} from "@/models/policyAP";
+
+// Mock Data ตัวอย่าง
+export const policyAPs: PolicyAP[] = [
+  {
+    requestedID: "JCR202504000001",
+    policyNumber: "THV-11223344",
+    customerName: "สมชาย ใจดี",
+    licenseNumber: "กข1234",
+    effectiveDate: "2024-07-01T00:00:00.000Z",
+    createdDate: "2024-06-27T15:10:00.000Z",
+    premium: 3200,
+    premiumTotal: 3700,
+    policyType: PolicyType.COMPULSORY_MOTOR,
+    policyStatus: PolicyStatus.POLICY_RECEIVED,
+    apStatus: APStatus.VALIDATED,
+  },
+  {
+    requestedID: "JCR202504000002",
+    policyNumber: "VRY-44332211",
+    customerName: "วิไลวรรณ จงรักษ์",
+    licenseNumber: "1ขก9999",
+    effectiveDate: "2024-06-15T00:00:00.000Z",
+    createdDate: "2024-06-13T11:09:00.000Z",
+    premium: 2600,
+    premiumTotal: 2950,
+    policyType: PolicyType.VOLUNTARY_MOTOR,
+    policyStatus: PolicyStatus.RECEIVED_NOTIFIED,
+    apStatus: APStatus.VALIDATED,
+  },
+  {
+    requestedID: "JCR202504000003",
+    policyNumber: "SMK-77889900",
+    customerName: "จิราภรณ์ ทองดี",
+    licenseNumber: "3ฮจ7654",
+    effectiveDate: "2024-07-10T00:00:00.000Z",
+    createdDate: "2024-07-01T09:17:00.000Z",
+    premium: 1450,
+    premiumTotal: 1450,
+    policyType: PolicyType.COMPULSORY_MOTOR,
+    policyStatus: PolicyStatus.APPLICATION_CREATED,
+    apStatus: APStatus.DISPUTED,
+  },
+  {
+    requestedID: "JCR202504000004",
+    policyNumber: "VRY-11220099",
+    customerName: "พรชัย บุญญะ",
+    licenseNumber: "2ขฉ3456",
+    effectiveDate: "2024-07-15T00:00:00.000Z",
+    createdDate: "2024-07-04T12:32:00.000Z",
+    premium: 3900,
+    premiumTotal: 4200,
+    policyType: PolicyType.VOLUNTARY_MOTOR,
+    policyStatus: PolicyStatus.NOTIFIED,
+    apStatus: APStatus.VALIDATED,
+  },
+  {
+    requestedID: "JCR202504000005",
+    policyNumber: "THV-55889944",
+    customerName: "อำพร สุขใจ",
+    licenseNumber: "ขข7777",
+    effectiveDate: "2024-06-05T00:00:00.000Z",
+    createdDate: "2024-06-02T15:02:00.000Z",
+    premium: 2200,
+    premiumTotal: 2200,
+    policyType: PolicyType.COMPULSORY_MOTOR,
+    policyStatus: PolicyStatus.NOTIFIED,
+    apStatus: APStatus.VALIDATED,
+  },
+  {
+    requestedID: "JCR202504000006",
+    policyNumber: "SMK-55992288",
+    customerName: "สุชาติ ใจเย็น",
+    licenseNumber: "ขฮ5468",
+    effectiveDate: "2024-08-01T00:00:00.000Z",
+    createdDate: "2024-07-09T13:55:00.000Z",
+    premium: 1200,
+    premiumTotal: 1350,
+    policyType: PolicyType.VOLUNTARY_MOTOR,
+    policyStatus: PolicyStatus.POLICY_RECEIVED,
+    apStatus: APStatus.VALIDATED,
+  },
+  {
+    requestedID: "JCR202504000007",
+    policyNumber: "VRY-55667788",
+    customerName: "จีรนันท์ ลักษณ์สุวรรณ",
+    licenseNumber: "7กข5678",
+    effectiveDate: "2024-07-17T00:00:00.000Z",
+    createdDate: "2024-07-08T10:45:00.000Z",
+    premium: 2550,
+    premiumTotal: 2650,
+    policyType: PolicyType.VOLUNTARY_MOTOR,
+    policyStatus: PolicyStatus.APPLICATION_CREATED,
+    apStatus: APStatus.DISPUTED,
+  },
+  {
+    requestedID: "JCR202504000008",
+    policyNumber: "THV-22334455",
+    customerName: "อภิชัย สายชล",
+    licenseNumber: "6ขก1010",
+    effectiveDate: "2024-06-28T00:00:00.000Z",
+    createdDate: "2024-06-20T14:20:00.000Z",
+    premium: 1900,
+    premiumTotal: 2100,
+    policyType: PolicyType.COMPULSORY_MOTOR,
+    policyStatus: PolicyStatus.RECEIVED_NOTIFIED,
+    apStatus: APStatus.VALIDATED,
+  },
+  {
+    requestedID: "JCR202504000009",
+    policyNumber: "SMK-33445566",
+    customerName: "พิมพ์วลัย กิจเกษตร",
+    licenseNumber: "กท1235",
+    effectiveDate: "2024-08-03T00:00:00.000Z",
+    createdDate: "2024-07-12T08:10:00.000Z",
+    premium: 3350,
+    premiumTotal: 3700,
+    policyType: PolicyType.VOLUNTARY_MOTOR,
+    policyStatus: PolicyStatus.NOTIFIED,
+    apStatus: APStatus.DISPUTED,
+  },
+  {
+    requestedID: "JCR202504000010",
+    policyNumber: "VRY-44556677",
+    customerName: "สิริยากร สุขพอ",
+    licenseNumber: "4ขข4321",
+    effectiveDate: "2024-08-10T00:00:00.000Z",
+    createdDate: "2024-07-15T11:50:00.000Z",
+    premium: 1800,
+    premiumTotal: 1850,
+    policyType: PolicyType.COMPULSORY_MOTOR,
+    policyStatus: PolicyStatus.POLICY_RECEIVED,
+    apStatus: APStatus.VALIDATED,
+  },
+];
+
+// Repository ฟังก์ชันหลัก
+export const PolicyAPRepo = {
+  getAll: (): PolicyAP[] => policyAPs,
+  getById: (id: string): PolicyAP | undefined =>
+    policyAPs.find((ap) => ap.requestedID === id),
+  add: (ap: PolicyAP): PolicyAP => {
+    // บังคับ field วันให้เป็น ISO string
+    ap.effectiveDate = new Date(ap.effectiveDate).toISOString();
+    ap.createdDate = new Date(ap.createdDate).toISOString();
+    policyAPs.push(ap);
+    return ap;
+  },
+  // เพิ่ม update/delete function ได้ตามต้องการ
+};
